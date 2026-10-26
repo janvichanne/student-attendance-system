@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AttendEase | Student Attendance Management</title>
+<style>
+:root{--navy:#172554;--blue:#4f46e5;--sky:#eef2ff;--ink:#1e293b;--muted:#64748b;--line:#e2e8f0;--green:#059669;--red:#dc2626;--amber:#d97706}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;background:#f5f7fb;color:var(--ink)}
+button,input,select{font:inherit}button{cursor:pointer;border:0;border-radius:10px;padding:11px 15px;font-weight:650}.primary{background:var(--blue);color:white}.secondary{background:#eef2ff;color:#3730a3}.danger{background:#fee2e2;color:#991b1b}.small{padding:7px 10px;font-size:13px}
+.layout{display:flex;min-height:100vh}.sidebar{width:245px;background:var(--navy);color:#e0e7ff;padding:25px 16px;display:flex;flex-direction:column;gap:8px}.brand{font-size:21px;font-weight:850;padding:5px 12px 28px;letter-spacing:-.5px}.brand span{color:#a5b4fc}.nav{display:flex;align-items:center;gap:12px;text-align:left;background:transparent;color:#c7d2fe;width:100%;padding:13px 14px}.nav.active,.nav:hover{background:#312e81;color:white}.side-note{margin-top:auto;font-size:12px;color:#a5b4fc;line-height:1.6;padding:12px}
+main{flex:1;min-width:0;padding:28px 32px}.top{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:25px}.eyebrow{font-size:12px;font-weight:800;color:var(--blue);text-transform:uppercase;letter-spacing:1.5px}.top h1{margin:5px 0;font-size:28px;letter-spacing:-.7px}.sub{color:var(--muted);font-size:14px}.date-pill{background:white;border:1px solid var(--line);padding:10px 13px;border-radius:12px;color:#475569;font-size:13px}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-bottom:22px}.card,.panel{background:white;border:1px solid #e9edf5;border-radius:17px;padding:20px;box-shadow:0 5px 18px #0f172a05}.metric-top{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:13px}.metric-icon{height:38px;width:38px;border-radius:12px;background:var(--sky);display:grid;place-items:center;font-size:19px}.metric{font-size:30px;font-weight:800;margin:14px 0 4px;letter-spacing:-1px}.metric-foot{font-size:12px;color:var(--muted)}.grid2{display:grid;grid-template-columns:1.3fr 1fr;gap:18px}.panel-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:17px}.panel h2{font-size:17px;margin:0}.panel p{color:var(--muted);font-size:13px}.quick{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.quick button{padding:18px 14px;text-align:left;background:#f8fafc;border:1px solid var(--line);color:var(--ink)}.quick button:hover{border-color:#a5b4fc;background:#eef2ff}.quick b{display:block;margin:8px 0 3px}.quick span{font-size:12px;color:var(--muted);font-weight:400}.bar-row{display:grid;grid-template-columns:90px 1fr 36px;gap:10px;align-items:center;margin:17px 0;font-size:13px}.bar{height:9px;background:#eef2f7;border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;background:var(--blue);border-radius:9px}
+.page{display:none}.page.active{display:block}.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:17px}.field{display:flex;flex-direction:column;gap:7px;min-width:150px;flex:1}.field label{font-size:12px;color:#64748b;font-weight:750}.field input,.field select,.toolbar input,.toolbar select{width:100%;border:1px solid #dbe2ed;border-radius:10px;background:white;padding:11px 12px;outline:none;color:var(--ink)}.field input:focus,.field select:focus,.toolbar input:focus,.toolbar select:focus{border-color:#818cf8;box-shadow:0 0 0 3px #eef2ff}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.form-actions{display:flex;gap:10px;margin-top:18px}.table-wrap{overflow-x:auto}table{border-collapse:collapse;width:100%;min-width:620px}th,td{text-align:left;padding:14px 12px;border-bottom:1px solid #edf0f5;font-size:13px}th{color:#64748b;font-size:11px;text-transform:uppercase;letter-spacing:.7px;background:#fafbfe}tbody tr:hover{background:#fafbff}.avatar{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:11px;background:#e0e7ff;color:#3730a3;font-weight:800;margin-right:9px}.student-cell{display:flex;align-items:center;font-weight:700}.badge{padding:5px 9px;border-radius:20px;font-size:11px;font-weight:800;display:inline-block}.present{background:#d1fae5;color:#065f46}.absent{background:#fee2e2;color:#991b1b}.late{background:#fef3c7;color:#92400e}.neutral{background:#e2e8f0;color:#475569}.attendance-actions{display:flex;gap:5px}.attendance-actions button{padding:7px 9px;font-size:11px;border:1px solid transparent}.attendance-actions .chosen{outline:2px solid #6366f1}.empty{text-align:center;padding:35px;color:var(--muted)}.notice{background:#eef2ff;border:1px solid #c7d2fe;color:#3730a3;padding:13px 15px;border-radius:12px;font-size:13px;margin-bottom:18px}.report-stat{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px}.report-stat .mini{background:#f8fafc;border:1px solid var(--line);padding:14px 18px;border-radius:12px;min-width:135px}.mini b{display:block;font-size:22px;margin-bottom:3px}.mini span{color:var(--muted);font-size:12px}
+@media(max-width:1050px){.cards{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}.sidebar{width:210px}main{padding:24px}}
+@media(max-width:680px){.layout{display:block}.sidebar{width:100%;padding:12px;display:flex;flex-direction:row;flex-wrap:wrap;align-items:center}.brand{width:100%;padding:7px 8px 9px}.nav{width:auto;flex:1;justify-content:center;padding:10px 9px;font-size:12px;gap:5px}.side-note{display:none}main{padding:18px 13px}.top{align-items:flex-start;flex-direction:column}.top h1{font-size:24px}.cards{gap:10px}.card{padding:15px}.metric{font-size:25px}.form-grid{grid-template-columns:1fr}.quick{grid-template-columns:1fr 1fr}.panel{padding:15px}.date-pill{align-self:flex-start}}
+@media print{.sidebar,.top .date-pill,.toolbar,.form-actions,.no-print{display:none!important}main{padding:0}.page{display:none!important}#reports.page{display:block!important}.panel{box-shadow:none;border:0}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar">
+  <div class="brand">Attend<span>Ease</span> ✦</div>
+  <button class="nav active" data-page="dashboard">▦ <span>Dashboard</span></button>
+  <button class="nav" data-page="students">♙ <span>Students</span></button>
+  <button class="nav" data-page="attendance">✓ <span>Mark Attendance</span></button>
+  <button class="nav" data-page="reports">▤ <span>Reports</span></button>
+  <div class="side-note">Student Attendance Management<br>Simple • Organized • Reliable</div>
+</aside>
+<main>
+<header class="top">
+ <div><div class="eyebrow">Student management portal</div><h1 id="pageTitle">Dashboard overview</h1><div class="sub" id="pageSubtitle">A clear view of your class attendance.</div></div>
+ <div class="date-pill" id="todayPill"></div>
+</header>
+
+<section class="page active" id="dashboard">
+ <div class="cards">
+  <div class="card"><div class="metric-top">Total Students <span class="metric-icon">♙</span></div><div class="metric" id="totalMetric">0</div><div class="metric-foot">Students in your class list</div></div>
+  <div class="card"><div class="metric-top">Present Today <span class="metric-icon">✓</span></div><div class="metric" id="presentMetric">0</div><div class="metric-foot">Marked present for selected date</div></div>
+  <div class="card"><div class="metric-top">Absent Today <span class="metric-icon">×</span></div><div class="metric" id="absentMetric">0</div><div class="metric-foot">Marked absent for selected date</div></div>
+  <div class="card"><div class="metric-top">Attendance Rate <span class="metric-icon">％</span></div><div class="metric" id="rateMetric">0%</div><div class="metric-foot">Based on marked attendance</div></div>
+ </div>
+ <div class="grid2">
+  <div class="panel"><div class="panel-head"><div><h2>Quick actions</h2><p>Start with the task you need.</p></div></div>
+   <div class="quick">
+    <button onclick="showPage('students')">＋<b>Add a student</b><span>Create a student record</span></button>
+    <button onclick="showPage('attendance')">✓<b>Mark attendance</b><span>Present, absent or late</span></button>
+    <button onclick="showPage('reports')">▤<b>View reports</b><span>Check daily attendance</span></button>
+    <button onclick="exportStudents()">⇩<b>Export student list</b><span>Download as CSV file</span></button>
+   </div>
+  </div>
+  <div class="panel"><div class="panel-head"><div><h2>Today's attendance</h2><p>Progress for the selected date</p></div></div>
+   <div class="bar-row"><span>Present</span><div class="bar"><i id="presentBar" style="width:0%"></i></div><b id="presentPct">0%</b></div>
+   <div class="bar-row"><span>Absent</span><div class="bar"><i id="absentBar" style="width:0%;background:#ef4444"></i></div><b id="absentPct">0%</b></div>
+   <div class="bar-row"><span>Late</span><div class="bar"><i id="lateBar" style="width:0%;background:#f59e0b"></i></div><b id="latePct">0%</b></div>
+   <div class="notice" style="margin-top:25px;margin-bottom:0">Tip: Add your students first, then open <b>Mark Attendance</b> to record a class.</div>
+  </div>
+ </div>
+ <div class="panel" style="margin-top:18px"><div class="panel-head"><h2>Recently added students</h2><button class="secondary small" onclick="showPage('students')">View all students →</button></div><div class="table-wrap"><table><thead><tr><th>Student</th><th>Roll No.</th><th>Class / Division</th><th>Contact</th></tr></thead><tbody id="recentStudents"></tbody></table></div></div>
+</section>
+
+<section class="page" id="students">
+ <div class="notice">Add students to build your class list. Records are saved in this browser on your device.</div>
+ <div class="panel" style="margin-bottom:18px"><div class="panel-head"><div><h2 id="studentFormTitle">Add new student</h2><p>Fill in the details below.</p></div></div>
+  <form id="studentForm"><input type="hidden" id="editId"><div class="form-grid">
+   <div class="field"><label for="studentName">STUDENT FULL NAME *</label><input id="studentName" required placeholder="e.g. Aditi Sharma"></div>
+   <div class="field"><label for="rollNo">ROLL NUMBER *</label><input id="rollNo" required placeholder="e.g. 101"></div>
+   <div class="field"><label for="studentClass">CLASS / DIVISION *</label><input id="studentClass" required placeholder="e.g. TY CSE - A"></div>
+   <div class="field"><label for="studentContact">CONTACT (OPTIONAL)</label><input id="studentContact" placeholder="Phone or email"></div>
+  </div><div class="form-actions"><button class="primary" type="submit" id="saveStudentBtn">＋ Add Student</button><button class="secondary" type="reset" onclick="resetStudentForm()">Clear form</button></div></form>
+ </div>
+ <div class="panel"><div class="panel-head"><div><h2>Student directory</h2><p id="studentCountText">0 students registered</p></div><button class="secondary small" onclick="exportStudents()">⇩ Export CSV</button></div>
+  <div class="toolbar"><input id="studentSearch" placeholder="Search name, roll number or class..." aria-label="Search students"></div>
+  <div class="table-wrap"><table><thead><tr><th>Student</th><th>Roll No.</th><th>Class / Division</th><th>Contact</th><th>Actions</th></tr></thead><tbody id="studentRows"></tbody></table></div>
+ </div>
+</section>
+
+<section class="page" id="attendance">
+ <div class="notice">Choose a date and mark each student's status. Press <b>Save Attendance</b> to store the register.</div>
+ <div class="panel">
+  <div class="panel-head"><div><h2>Class attendance register</h2><p>Choose the date and record attendance below.</p></div></div>
+  <div class="toolbar"><div class="field" style="max-width:220px"><label for="attendanceDate">ATTENDANCE DATE</label><input type="date" id="attendanceDate"></div><div class="field" style="max-width:220px"><label for="attendanceClass">FILTER BY CLASS</label><select id="attendanceClass"><option value="">All classes</option></select></div><div class="field" style="max-width:220px"><label for="attendanceSearch">SEARCH STUDENT</label><input id="attendanceSearch" placeholder="Name or roll no."></div></div>
+  <div class="report-stat"><div class="mini"><b id="regTotal">0</b><span>Students shown</span></div><div class="mini"><b id="regPresent">0</b><span>Present</span></div><div class="mini"><b id="regAbsent">0</b><span>Absent</span></div><div class="mini"><b id="regLate">0</b><span>Late</span></div></div>
+  <div class="table-wrap"><table><thead><tr><th>Student</th><th>Roll No.</th><th>Class</th><th>Attendance status</th></tr></thead><tbody id="attendanceRows"></tbody></table></div>
+  <div class="form-actions"><button class="primary" onclick="saveAttendance()">✓ Save Attendance</button><button class="secondary" onclick="setAll('Present')">Mark all present</button><button class="secondary" onclick="setAll('Absent')">Mark all absent</button></div>
+ </div>
+</section>
+
+<section class="page" id="reports">
+ <div class="panel">
+  <div class="panel-head"><div><h2>Attendance reports</h2><p>Review records by date and export the register.</p></div><button class="primary no-print" onclick="window.print()">Print report</button></div>
+  <div class="toolbar"><div class="field" style="max-width:220px"><label for="reportDate">SELECT DATE</label><input type="date" id="reportDate"></div><div class="field" style="max-width:220px"><label for="reportClass">FILTER BY CLASS</label><select id="reportClass"><option value="">All classes</option></select></div><button class="secondary" style="align-self:end" onclick="exportAttendance()">⇩ Export report CSV</button></div>
+  <div class="report-stat"><div class="mini"><b id="reportTotal">0</b><span>Students in report</span></div><div class="mini"><b id="reportPresent">0</b><span>Present</span></div><div class="mini"><b id="reportAbsent">0</b><span>Absent</span></div><div class="mini"><b id="reportRate">0%</b><span>Attendance rate</span></div></div>
+  <div class="table-wrap"><table><thead><tr><th>Student</th><th>Roll No.</th><th>Class</th><th>Status</th><th>Date</th></tr></thead><tbody id="reportRows"></tbody></table></div>
+ </div>
+ <p class="sub" style="margin:15px 3px">Note: Reports show the selected date. A student without a saved mark appears as “Not marked”.</p>
+</section>
+</main></div>
+<script>
+const $=id=>document.getElementById(id);
+const today=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
+const safeParse=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key))||fallback}catch{return fallback}};
+let students=safeParse('attendease_students',[]);
+let records=safeParse('attendease_attendance',{});
+let draft={};
+const titles={dashboard:['Dashboard overview','A clear view of your class attendance.'],students:['Student management','Add, search and update student records.'],attendance:['Mark attendance','Record daily attendance for your class.'],reports:['Attendance reports','Review and export attendance records.']};
+function persist(){localStorage.setItem('attendease_students',JSON.stringify(students));localStorage.setItem('attendease_attendance',JSON.stringify(records))}
+function showPage(page){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===page));document.querySelectorAll('.nav').forEach(b=>b.classList.toggle('active',b.dataset.page===page));$('pageTitle').textContent=titles[page][0];$('pageSubtitle').textContent=titles[page][1];renderAll();window.scrollTo({top:0,behavior:'smooth'})}
+document.querySelectorAll('.nav').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
+$('todayPill').textContent=new Date().toLocaleDateString(undefined,{weekday:'short',year:'numeric',month:'short',day:'numeric'});
+$('attendanceDate').value=today();$('reportDate').value=today();
+function escapeHtml(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function initials(name){return String(name||'?').trim().split(/\s+/).slice(0,2).map(x=>x[0]||'').join('').toUpperCase()}
+function statusBadge(s){let cls=s==='Present'?'present':s==='Absent'?'absent':s==='Late'?'late':'neutral';return `<span class="badge ${cls}">${escapeHtml(s||'Not marked')}</span>`}
+function emptyRow(cols,msg){return `<tr><td colspan="${cols}" class="empty">${msg}</td></tr>`}
+function getStatus(date,id){return (records[date]||{})[id]||''}
+function renderDashboard(){const date=$('attendanceDate').value||today();const day=records[date]||{};const vals=Object.values(day);const p=vals.filter(x=>x==='Present').length,a=vals.filter(x=>x==='Absent').length,l=vals.filter(x=>x==='Late').length,marked=p+a+l;const rate=marked?Math.round(p/marked*100):0;$('totalMetric').textContent=students.length;$('presentMetric').textContent=p;$('absentMetric').textContent=a;$('rateMetric').textContent=rate+'%';const denom=students.length||1;$('presentBar').style.width=(p/denom*100)+'%';$('absentBar').style.width=(a/denom*100)+'%';$('lateBar').style.width=(l/denom*100)+'%';$('presentPct').textContent=Math.round(p/denom*100)+'%';$('absentPct').textContent=Math.round(a/denom*100)+'%';$('latePct').textContent=Math.round(l/denom*100)+'%';const recent=[...students].slice(-5).reverse();$('recentStudents').innerHTML=recent.length?recent.map(s=>`<tr><td><div class="student-cell"><span class="avatar">${escapeHtml(initials(s.name))}</span>${escapeHtml(s.name)}</div></td><td>${escapeHtml(s.roll)}</td><td>${escapeHtml(s.className)}</td><td>${escapeHtml(s.contact||'—')}</td></tr>`).join(''):emptyRow(4,'No students yet. Use “Add a student” to get started.')}
+function renderStudents(){const q=$('studentSearch').value.toLowerCase();const list=students.filter(s=>[s.name,s.roll,s.className,s.contact].join(' ').toLowerCase().includes(q));$('studentCountText').textContent=`${students.length} student${students.length===1?'':'s'} registered`;$('studentRows').innerHTML=list.length?list.map(s=>`<tr><td><div class="student-cell"><span class="avatar">${escapeHtml(initials(s.name))}</span>${escapeHtml(s.name)}</div></td><td>${escapeHtml(s.roll)}</td><td>${escapeHtml(s.className)}</td><td>${escapeHtml(s.contact||'—')}</td><td><button class="secondary small" onclick="editStudent('${s.id}')">Edit</button> <button class="danger small" onclick="deleteStudent('${s.id}')">Delete</button></td></tr>`).join(''):emptyRow(5,'No matching students found.')}
+function refreshClassFilters(){const classes=[...new Set(students.map(s=>s.className).filter(Boolean))].sort();['attendanceClass','reportClass'].forEach(id=>{const el=$(id),old=el.value;el.innerHTML='<option value="">All classes</option>'+classes.map(c=>`<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('');if(classes.includes(old))el.value=old})}
+function renderAttendance(){const date=$('attendanceDate').value||today(),cl=$('attendanceClass').value,q=$('attendanceSearch').value.toLowerCase();const list=students.filter(s=>(!cl||s.className===cl)&&[s.name,s.roll].join(' ').toLowerCase().includes(q));list.sort((a,b)=>String(a.roll).localeCompare(String(b.roll),undefined,{numeric:true}));$('regTotal').textContent=list.length;['Present','Absent','Late'].forEach(st=>{$('reg'+st).textContent=list.filter(s=>(draft[s.id]??getStatus(date,s.id))===st).length});$('attendanceRows').innerHTML=list.length?list.map(s=>{const st=draft[s.id]??getStatus(date,s.id);return `<tr><td><div class="student-cell"><span class="avatar">${escapeHtml(initials(s.name))}</span>${escapeHtml(s.name)}</div></td><td>${escapeHtml(s.roll)}</td><td>${escapeHtml(s.className)}</td><td><div class="attendance-actions">${['Present','Absent','Late'].map(x=>`<button class="${x==='Present'?'present':x==='Absent'?'absent':'late'} ${st===x?'chosen':''}" onclick="markOne('${s.id}','${x}')">${x}</button>`).join('')}</div></td></tr>`}).join(''):emptyRow(4,'No students to show. Add students in the Students section.')}
+function markOne(id,status){draft[id]=status;renderAttendance()}
+function setAll(status){const date=$('attendanceDate').value||today(),cl=$('attendanceClass').value,q=$('attendanceSearch').value.toLowerCase();students.filter(s=>(!cl||s.className===cl)&&[s.name,s.roll].join(' ').toLowerCase().includes(q)).forEach(s=>draft[s.id]=status);renderAttendance()}
+function saveAttendance(){const date=$('attendanceDate').value;if(!date){alert('Please select a date.');return}records[date]=records[date]||{};students.forEach(s=>{if(draft[s.id])records[date][s.id]=draft[s.id]});persist();draft={};renderAll();alert('Attendance saved successfully for '+date+'.')}
+function renderReports(){const date=$('reportDate').value||today(),cl=$('reportClass').value;const list=students.filter(s=>!cl||s.className===cl);const day=records[date]||{};const p=list.filter(s=>day[s.id]==='Present').length,a=list.filter(s=>day[s.id]==='Absent').length,l=list.filter(s=>day[s.id]==='Late').length,marked=p+a+l;$('reportTotal').textContent=list.length;$('reportPresent').textContent=p;$('reportAbsent').textContent=a;$('reportRate').textContent=(marked?Math.round(p/marked*100):0)+'%';$('reportRows').innerHTML=list.length?list.slice().sort((a,b)=>String(a.roll).localeCompare(String(b.roll),undefined,{numeric:true})).map(s=>`<tr><td>${escapeHtml(s.name)}</td><td>${escapeHtml(s.roll)}</td><td>${escapeHtml(s.className)}</td><td>${statusBadge(day[s.id]||'Not marked')}</td><td>${escapeHtml(date)}</td></tr>`).join(''):emptyRow(5,'No students found for this class.')}
+function renderAll(){refreshClassFilters();renderDashboard();renderStudents();renderAttendance();renderReports()}
+$('studentForm').addEventListener('submit',e=>{e.preventDefault();const id=$('editId').value;const name=$('studentName').value.trim(),roll=$('rollNo').value.trim(),className=$('studentClass').value.trim(),contact=$('studentContact').value.trim();if(students.some(s=>s.roll.toLowerCase()===roll.toLowerCase()&&s.id!==id)){alert('This roll number is already in use. Please enter a unique roll number.');return}if(id){students=students.map(s=>s.id===id?{...s,name,roll,className,contact}:s)}else{students.push({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),name,roll,className,contact})}persist();resetStudentForm();renderAll();alert(id?'Student details updated.':'Student added successfully.')});
+function resetStudentForm(){$('editId').value='';$('studentFormTitle').textContent='Add new student';$('saveStudentBtn').textContent='＋ Add Student';$('studentForm').reset()}
+function editStudent(id){const s=students.find(s=>s.id===id);if(!s)return;$('editId').value=s.id;$('studentName').value=s.name;$('rollNo').value=s.roll;$('studentClass').value=s.className;$('studentContact').value=s.contact||'';$('studentFormTitle').textContent='Edit student details';$('saveStudentBtn').textContent='Save changes';window.scrollTo({top:0,behavior:'smooth'})}
+function deleteStudent(id){const s=students.find(s=>s.id===id);if(!s||!confirm(`Delete ${s.name} and their attendance records?`))return;students=students.filter(x=>x.id!==id);Object.keys(records).forEach(d=>delete records[d][id]);delete draft[id];persist();renderAll()}
+function downloadCSV(filename,rows){const csv=rows.map(row=>row.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\r\n');const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8;'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=filename;a.click();URL.revokeObjectURL(url)}
+function exportStudents(){downloadCSV('student-list.csv',[['Name','Roll Number','Class / Division','Contact'],...students.map(s=>[s.name,s.roll,s.className,s.contact||''])])}
+function exportAttendance(){const date=$('reportDate').value||today(),cl=$('reportClass').value;const list=students.filter(s=>!cl||s.className===cl);downloadCSV(`attendance-${date}.csv`,[['Name','Roll Number','Class / Division','Status','Date'],...list.map(s=>[s.name,s.roll,s.className,getStatus(date,s.id)||'Not marked',date])])}
+$('studentSearch').addEventListener('input',renderStudents);['attendanceDate','attendanceClass','attendanceSearch'].forEach(id=>$(id).addEventListener('input',renderAttendance));['reportDate','reportClass'].forEach(id=>$(id).addEventListener('input',renderReports));
+renderAll();
+</script>
+</body></html>
